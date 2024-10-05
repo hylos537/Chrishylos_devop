@@ -1,0 +1,101 @@
+TASK1: Prepare for automation
+@apps1a - devices with "ZeroDayConfig:"
+config t
+no logging console
+line vty 0 14
+ transport input all
+ exec-timeout 0 0
+int gi 1
+ no shut
+ ip add 192.168.108.5 255.255.255.0
+ do wr
+
+TASK2: Install vscode extensions to make your programming heaven
+
+
+
+#upgrade your pip installer:
+py -m pip install --upgrade pip
+py -m pip install netmiko
+
+
+TASK3 - ENCOR CCNP LAB: NETFLOW LAB 1of3:
+
+TASK3 - HOW TO IMPLEMENT NETFLOW CONNECTION:
+
+netflow connection:
+
+Examlab1: Create a default netflow exporter using Default collection:\
+APPS1A:
+config t
+flow exporter MyFlowExporter
+ destination 192.168.108.1
+ transport udp 2055
+ export-protocol netflow-v9
+end
+
+NETFLOW LAB2: LEARN TO CREATE YOUR OWN NETFLOW Configs:
+
+step 1: configure and verify flexible [ikaw nag custom] netflow
+APPS1A:
+config t 
+	Flow record CCNPENCOR-CUSTOM-OUT
+	description CustomFlowforEncorLAB
+	match ipv4 destination address
+	match transport destination-port
+	collect counter bytes
+	collect counter packets
+end
+show flow record CCNPENCOR-CUSTOM-OUT
+
+
+
+Step 2: Create Flow Exporter:
+config t
+	flow exporter CCNP8-COLLECTOR-HOST
+	destination 192.168.108.1
+	transport UDP 2055
+	end
+show flow exporter CCNP8-COLLECTOR-HOST
+
+
+Step 3: Create Flow Monitor and associate Flow Records and Flow Exporters with it:
+conf t
+	flow monitor CCNP8-INBOUND-MONITOR
+	record netflow ipv4 original-input
+	cache timeout active 30
+ 	exporter CCNP8-COLLECTOR-HOST
+	exit
+	flow monitor CCNP8-OUTBOUND-MONITOR
+	record CCNPENCOR-CUSTOM-OUT
+	cache timeout active 30
+	exporter CCNP8-COLLECTOR-HOST
+	exit
+show flow monitor
+
+
+Step 4: Configure the appropriate inteface:
+conf t
+	interface gigabit 1
+	ip flow monitor CCNP8-INBOUND-MONITOR input
+	ip flow monitor CCNP8-OUTBOUND-MONITOR output
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
