@@ -1,0 +1,16 @@
+CCNP Encore 3: aka most important day. 
+why? all the hands-on lab 3/4 is today.
+
+1. Skills required: find the network
+address [for routing]
+
+ex:
+10.86.56.78/12 
+ospf
+= network 10.86.56.78 0.0.0.0 area 0
+= network 10.80.0.0 0.15.255.255 area 0
+ 
+
+10.100.88.5/13 =
+172.16.150.11/19 =
+192.168.100.77/28 = 
