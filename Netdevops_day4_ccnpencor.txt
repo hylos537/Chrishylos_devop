@@ -1,0 +1,89 @@
+
+
+
+BGP 64 bit ipv6
+BGP 32 bit ipv4
+
+
+
+TASK2: learn real BGP hands-on
+R1: 64 bit bgp - ipv6
+conf t
+router bgp 100
+bgp router-id 207.7.7.2
+neighbor 208.8.8.4 remote-as 450
+neighbor 207.7.7.2 remote-as 200
+neighbor 209.9.9.3 remote-as 300
+network 208.8.8.0 mask 255.255.255.0
+network 207.7.7.0 mask 255.255.255.0
+network 209.9.9.0 mask 255.255.255.0
+network 10.1.1.0 mask 255.255.255.255.252
+
+! what if use address-family - 32 bit bgp - ipv4
+conf t
+router bgp 100
+bgp router-id 207.7.7.2
+neighbor 208.8.8.4 remote-as 450
+neighbor 207.7.7.2 remote-as 200
+neighbor 209.9.9.3 remote-as 300
+address-family ipv4
+neighbor 208.8.8.4 activate
+neighbor 207.7.7.2 activate
+neighbor 209.9.9.3 activate
+network 208.8.8.0 mask 255.255.255.0
+network 207.7.7.0 mask 255.255.255.0
+network 209.9.9.0 mask 255.255.255.0
+network 10.1.1.0 mask 255.255.255.255.252
+
+
+
+github
+import
+https://github.com/rivancorp/highpay
+https://github.com/rivancorp/ITILV4
+https://github.com/ggenergg/RST-DualStackRouting (other versio rsthayup by sir gene)
+
+
+
+
+R1 IPV6 config (create own)
+conf t
+router bgp 100
+neighbor b:1:33:b::3 remote-as 300
+neighbor b:1:22:b::2 remote-as 200
+neighbor b:1:11:b::1 remote-as 450
+address-family ipv6
+neighbor b:1:33:b::3 activate
+neighbor b:1:22:b::2 activate
+neighbor b:1:11:b::1 activate
+network FEC0:1::/122
+network B:1:33:B::/64
+network B:1:22:B::/64
+network B:1:11:B::/64
+end
+
+IPV4 - default-information originate
+IPV6 - default-information originate always
+
+
+DEFAULT IPV6 ROUTING FOR P1 and P2
+P1/P2:
+conf t
+ipv6 route ::/0 10:2:1:12::1
+
+
+
+
+41					42
+200.0.0.41				200.0.0.42
+10.41.0.0/16				10.42.0.0/16
+
+ipsec vpn config
+tunnel1					tunnel1
+172.41.21.1/24				172.42.21.2/24
+encryption 3des
+
+secret encryption vpn pass
+pansit123
+
+
